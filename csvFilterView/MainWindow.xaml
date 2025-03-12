@@ -12,19 +12,38 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <!-- CSV読み込みボタン -->
-        <Button Content="CSVを開く" Grid.Row="0" Click="LoadCsv_Click" HorizontalAlignment="Left" Margin="10"/>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <!-- 「文字コード：」のTextBlock -->
+            <ColumnDefinition Width="100"/>
+            <!-- ComboBox -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- CSVを開くボタン -->
+            <ColumnDefinition Width="*"/>
+            <!-- 余白（右端にスペースを作る） -->
+        </Grid.ColumnDefinitions>
+
+        <!-- 文字コードラベル -->
+        <TextBlock Text="文字コード：" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="5"/>
+        <!-- ComboBox（文字コード選択） -->
+        <ComboBox x:Name="EncodingComboBox" Grid.Row="0" Grid.Column="1" Margin="5,5,5,3">
+            <ComboBoxItem Content="UTF-8" IsSelected="True"/>
+            <ComboBoxItem Content="Shift-JIS"/>
+        </ComboBox>
+        <!-- CSVを開くボタン -->
+        <Button Content="CSVを開く" Click="OpenCsvButton_Click" Grid.Row="0" Grid.Column="2" Margin="5"/>
+
+        
         <!-- フィルターUI -->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="4" Margin="10">
             <ComboBox x:Name="cmbColumns" Width="150" />
             <TextBox x:Name="txtFilter" Width="200" Margin="5,0"/>
             <Button Content="フィルター適用" Click="ApplyFilter_Click" />
         </StackPanel>
 
         <!-- DataGridでデータ表示 -->
-        <DataGrid x:Name="dataGrid" Grid.Row="2" AutoGenerateColumns="True"
+        <DataGrid x:Name="CsvDataGrid" Grid.Row="2" Grid.ColumnSpan="4" AutoGenerateColumns="True"
                   IsReadOnly="True" Margin="10"/>
     </Grid>
 
